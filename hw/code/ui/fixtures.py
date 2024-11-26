@@ -5,6 +5,8 @@ from ui.pages.auth_page import AuthPage
 from ui.pages.base_page import BasePage
 from ui.pages.main_page import MainPage
 from ui.pages.registration_page import RegistrationPage
+from ui.pages.cabinet_page import CabinetPage
+from ui.pages.campaigns_page import CampaignsPage
 import os
 from dotenv import load_dotenv
 
@@ -65,7 +67,12 @@ def auth_page(driver):
     return AuthPage(driver=driver)
 
 @pytest.fixture
-def registration_page(driver, credentials_with_cabinet, auth_page):
+def cabinet_page(driver, credentials_with_cabinet, auth_page):
     driver.get(BasePage.url)
     auth_page.login(*credentials_with_cabinet)
-    return RegistrationPage(driver=driver)
+    return CabinetPage(driver=driver)
+
+@pytest.fixture
+def campaigns_page(driver, cabinet_page):
+    driver.get(CampaignsPage.url)
+    return CampaignsPage(driver=driver)

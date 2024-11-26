@@ -1,6 +1,5 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
 from ui.pages.base_page import BasePage
 from ui.locators.auth_page_locators import AuthPageLocators
 import time
@@ -45,3 +44,4 @@ class AuthPage(BasePage):
         )
 
         self.click(self.locators.MAIL_RU_SUBMIT_BUTTON)
+        
