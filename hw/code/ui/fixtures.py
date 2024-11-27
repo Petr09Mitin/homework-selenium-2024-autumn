@@ -10,7 +10,6 @@ from ui.pages.campaigns_page import CampaignsPage
 import os
 from dotenv import load_dotenv
 
-
 @pytest.fixture()
 def driver(config):
     browser = config['browser']

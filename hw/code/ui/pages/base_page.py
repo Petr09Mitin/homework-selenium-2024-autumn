@@ -6,6 +6,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
+from os import path
 
 from ui.locators.base_page_locators import BasePageLocators
 
@@ -13,12 +14,16 @@ from ui.locators.base_page_locators import BasePageLocators
 class PageNotOpenedException(Exception):
     pass
 
-
 class BasePage(object):
     locators = BasePageLocators()
     url = 'https://ads.vk.com/'
 
-    def is_opened(self, timeout=15):
+    def _get_static_filepath(self, filename):
+        return path.abspath(
+            path.join(path.curdir, 'hw', 'static', filename)
+        )
+
+    def is_opened(self, timeout=100):
         started = time.time()
         while time.time() - started < timeout:
             if self.driver.current_url == self.url:
