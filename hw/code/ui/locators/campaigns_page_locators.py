@@ -7,7 +7,7 @@ class CampaignPageLocators(BasePageLocators):
     CREATE_CAMPAIGN_BUTTON = (By.XPATH, "//*[@data-testid='create-button']")
     CAMPAIGN_NAME_INPUT = (By.XPATH, '//div[starts-with(@class, "EditableTitle")]')
     SITE_OPTION = (By.XPATH, '//div[@data-id="site_conversions"]')
-    CATALOGUE_OPTION = (By.XPATH, '//div[@data-id="ecomm"]')
+    GROUP_OPTION = (By.XPATH, '//div[@data-id="social"]')
     ADVERTISED_SITE_FIELD = (By.XPATH, '//input[@placeholder="Введите ссылку на сайт"]')
     BUDGET = (By.XPATH, '//*[@data-testid="targeting-not-set"]')
     START_DATE = (By.XPATH, '//*[@data-testid="start-date"]')
@@ -28,14 +28,31 @@ class CampaignPageLocators(BasePageLocators):
     AD_LOGO_PREVIEW = (By.XPATH, '//img[@alt="media preview" and contains(@class, "AdMediaPreview_img")]')
     ADD_MEDIA_AI = (By.XPATH, '//span[contains(text(), "Созданное нейросетью")]')
     MEDIA_PLACEHOLDER = (By.XPATH, '//*[contains(@class, "MediaPlaceholder")]')
+    DESCRIPTION = (By.XPATH, '//*[@data-testid="Описание 2000 знаков"]')
     ADD_MEDIA_AI_ELEMENT = (By.XPATH, '//div[contains(@class, "ImageItem_imageItem")]')
     ADD_MEDIA_AI_BUTTON = (By.XPATH, '//span[contains(text(), "Добавить (")]')
     PUBLISH_BUTTON = (By.XPATH, '//span[contains(text(), "Опубликовать")]')
+    GROUP_SELECTOR = (By.XPATH, '//div[starts-with(@class, "VkOwnerSelector_select")]')
+    ENTER_OTHER_GROUP = (By.XPATH, '//*[text()="Другое сообщество"]')
+    ADD_GROUP_BUTTON = (By.XPATH, '//*[text()="Добавить"]')
+    CONFIRM_CAMPAIGN = (By.XPATH, '//span[text()="Отправить"]')
+    SHOT_IN_VIDEO = (By.XPATH, '//span[text()="Ролик в видео"]')
     
     ACTIONS_ICON = (By.XPATH, '//*[@data-testid="actions"]')
     DELETE_BUTTON = (By.XPATH, '//*[contains(text(), "Удалить")]')
     CAMPAIGNS_MENU_TAB = (By.XPATH, '//*[@id="dashboardV2.plans"]')
     
+    SEARCH_INPUT = (By.XPATH, '//*[@data-testid="filter-search-input"]')
+    FILTER_BUTTON = (By.XPATH, '//*[@data-testid="filter-button"]')
+    FILTERS_RESET_BUTTON = (By.XPATH, '//*[@data-testid="filters-reset-all-button"]')
+    FILTERS_APPLY_BUTTON = (By.XPATH, '//*[@data-testid="filters-apply-button"]')
+    
+    TAGS_SELECTOR = (By.XPATH, '//*[@data-testid="tags-selector"]')
+    CREATE_TAG = (By.XPATH, '//*[@data-testid="create_tag"]')
+    
     def get_campaign_name_locator(name):
-        return (By.XPATH, f'//div[starts-with(@class, "nameCellContent_content")]//button[contains(text(), "{name}")]')
+        return (By.XPATH, f'//div[starts-with(@class, "nameCellContent_content")]//button[text()="{name}"]')
+
+    def get_folder_name_locator(name):
+        return (By.XPATH, f'//div[starts-with(@data-testid, "tag") and text()="{name}"]')
     

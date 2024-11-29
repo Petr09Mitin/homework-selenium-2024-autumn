@@ -10,6 +10,7 @@ from os import path
 
 from ui.locators.base_page_locators import BasePageLocators
 
+DEFAULT_TIMEOUT = 30
 
 class PageNotOpenedException(Exception):
     pass
