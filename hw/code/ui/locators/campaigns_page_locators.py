@@ -3,9 +3,12 @@ from ui.locators.base_page_locators import BasePageLocators
 
 
 class CampaignPageLocators(BasePageLocators):
-    LEARNING_MODAL_DISMISS_BUTTON = (By.XPATH, '//div[@role="button" and @aria-label="Закрыть"]')
+    DISMISS_BUTTON = (By.XPATH, '//div[@role="button" and @aria-label="Закрыть"]')
     CREATE_CAMPAIGN_BUTTON = (By.XPATH, "//*[@data-testid='create-button']")
-    CAMPAIGN_NAME_INPUT = (By.XPATH, '//div[starts-with(@class, "EditableTitle")]')
+    EDITABLE_HEADER = (By.XPATH, '//div[starts-with(@class, "EditableTitle")]')
+    EDITABLE_CAMPAIGN_HEADER = (By.XPATH, '//div[starts-with(@class, "EditableTitle") and *[contains(text(), "Кампания")]]')
+    EDITABLE_GROUP_HEADER = (By.XPATH, '//div[starts-with(@class, "EditableTitle") and *[contains(text(), "Группа")]]')
+    EDITABLE_AD_HEADER = (By.XPATH, '//div[starts-with(@class, "EditableTitle") and *[contains(text(), "Объявление")]]')
     SITE_OPTION = (By.XPATH, '//div[@data-id="site_conversions"]')
     GROUP_OPTION = (By.XPATH, '//div[@data-id="social"]')
     ADVERTISED_SITE_FIELD = (By.XPATH, '//input[@placeholder="Введите ссылку на сайт"]')
@@ -49,10 +52,39 @@ class CampaignPageLocators(BasePageLocators):
     
     TAGS_SELECTOR = (By.XPATH, '//*[@data-testid="tags-selector"]')
     CREATE_TAG = (By.XPATH, '//*[@data-testid="create_tag"]')
+    FOLDER_NAME_INPUT = (By.XPATH, '//input[@value="Новая папка"]')
+    CLOSE_CREATE_FOLDER_POPUP = (By.XPATH, '//div[contains(@class, "TagAdPlanModal_actions")]//span[text()="Отмена"]')
+    DELETE_FOLDER_BUTTON = (By.XPATH, '//span[text()="Удалить папку"]')
+    CONFIRM_DELETE_FOLDER_BUTTON = (By.XPATH, '//div[contains(@class,"ModalConfirm_buttons")]//span[text()="Удалить"]')
     
-    def get_campaign_name_locator(name):
+    ADD_CAMPAIGNS_TO_FOLDER = (By.XPATH, '//span[text()="Добавить кампании в папку"]')
+    SAVE = (By.XPATH, '//span[text()="Сохранить"]')
+    
+    EDIT_BUTTON = (By.XPATH, '//*[@data-testid="edit"]')
+    
+    ADS_MENU_ITEM = (By.XPATH, '//*[@id="dashboardV2.ads"]')
+    EDIT_HEADER = (By.XPATH, '//*[text()="Редактирование"]')
+    
+    def get_campaign_name_locator(self, name):
         return (By.XPATH, f'//div[starts-with(@class, "nameCellContent_content")]//button[text()="{name}"]')
 
-    def get_folder_name_locator(name):
+    def get_folder_name_locator(self, name):
         return (By.XPATH, f'//div[starts-with(@data-testid, "tag") and text()="{name}"]')
+
+    def get_folder_edit_icon_locator(self, name):
+        name_loc = self.get_folder_name_locator(name=name)[1]
+        loc = name_loc + '/../../../../div[contains(@class, "vkuiSimpleCell__after")]'
+        return (By.XPATH, loc)
+    
+    def get_select_campaign_element(self, name):
+        return (By.XPATH, f'//span[contains(@class, "vkuiCheckbox__titleBefore") and text()="{name}"]')
+
+    def get_ad_name_locator(self, name):
+        return (By.XPATH, f'//button[text()="{name}"]')
+
+    def get_editable_campaign_header(self, name):
+        return (By.XPATH, f'//div[starts-with(@class, "EditableTitle") and *[contains(text(), {name})]]' )
+    
+    def get_editable_ad_header(self, name):
+        return (By.XPATH, f'//div[starts-with(@class, "EditableTitle") and *[contains(@class, "EditableTitle_title") and contains(text(), {name})]]')
     

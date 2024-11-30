@@ -86,3 +86,8 @@ class BasePage(object):
             return True
         except TimeoutException:
             return False
+    
+    def send_keys_to_input(self, locator, keys, timeout):
+        inp = self.find(locator=locator, timeout=timeout)
+        inp.clear()
+        inp.send_keys(keys)
