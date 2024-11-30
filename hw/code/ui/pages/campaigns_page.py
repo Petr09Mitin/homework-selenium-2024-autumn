@@ -2,7 +2,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from ui.pages.base_page import BasePage, DEFAULT_TIMEOUT
 from ui.locators.campaigns_page_locators import CampaignPageLocators
-import time
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from datetime import date
