@@ -9,3 +9,5 @@ class CabinetPageLocators(BasePageLocators):
     COURSE_OPTION = (By.XPATH, '//span[text()="Смотреть курс на обучающей платформе"]')
     VIDEO = (By.XPATH, '//iframe[contains(@class, "VideoOnboardingModal_frame")]')
     DISMISS_BUTTON = (By.XPATH, '//div[@role="button" and @aria-label="Закрыть"]')
+    OPEN_ADBLOGGER = (By.XPATH, '//span[text()="Открыть VK AdBlogger"]')
+    DISMISS_ADBLOGGER = (By.XPATH, '//button[@aria-label="Close button"]')

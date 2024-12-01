@@ -10,6 +10,7 @@ from selenium.common.exceptions import TimeoutException
 class CabinetPage(BasePage):
     url = 'https://ads.vk.com/hq/overview'
     courses_url = 'https://expert.vk.com/courses'
+    adblogger_url = 'https://adblogger.vk.com'
     locators = CabinetPageLocators()
     
     def open_learning_modal(self, timeout=DEFAULT_TIMEOUT):
@@ -45,3 +46,19 @@ class CabinetPage(BasePage):
     def close_course_page(self, timeout=DEFAULT_TIMEOUT):
         self.driver.close()
     
+    def open_adblogger(self, timeout=DEFAULT_TIMEOUT):
+        self.click(locator=self.locators.OPEN_ADBLOGGER, timeout=timeout)
+        self.go_to_new_tab()
+        
+    def assert_adblogger_opened(self, timeout=DEFAULT_TIMEOUT):
+        assert self.subpage_is_opened(url=self.adblogger_url, timeout=timeout)
+        
+    def close_adblogger_page(self, timeout=DEFAULT_TIMEOUT):
+        self.driver.close()
+        
+    def dismiss_adblogger(self, timeout=DEFAULT_TIMEOUT):
+        self.click(locator=self.locators.DISMISS_ADBLOGGER, timeout=timeout)
+        
+    def assert_adblogger_invisible(self, timeout=DEFAULT_TIMEOUT):
+        assert self.became_invisible(locator=self.locators.OPEN_ADBLOGGER, timeout=timeout)
+        
