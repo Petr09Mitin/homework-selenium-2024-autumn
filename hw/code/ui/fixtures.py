@@ -8,6 +8,7 @@ from ui.pages.registration_page import RegistrationPage
 from ui.pages.cabinet_page import CabinetPage
 from ui.pages.campaigns_page import CampaignsPage
 from ui.pages.audience_page import AudiencePage
+from ui.pages.mobile_apps_page import MobileAppsPage
 import os
 from dotenv import load_dotenv
 
@@ -71,8 +72,6 @@ def cabinet_page(driver, credentials_with_cabinet, auth_page):
     driver.get(BasePage.url)
     auth_page.login(*credentials_with_cabinet)
     return CabinetPage(driver=driver)
-<<<<<<< HEAD
-=======
 
 @pytest.fixture
 def campaigns_page(driver, cabinet_page):
@@ -83,4 +82,8 @@ def campaigns_page(driver, cabinet_page):
 def audience_page(driver, cabinet_page):
     driver.get(AudiencePage.url)
     return AudiencePage(driver=driver)
->>>>>>> fad62e5ef45efd3e2f37ce2d362c301a91f0235a
+
+@pytest.fixture
+def mobile_apps_page(driver, cabinet_page):
+    driver.get(MobileAppsPage.url)
+    return MobileAppsPage(driver=driver)

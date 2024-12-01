@@ -42,4 +42,17 @@ class AuthPage(BasePage):
         )
 
         self.click(self.locators.MAIL_RU_SUBMIT_BUTTON)
+        WebDriverWait(self.driver, DEFAULT_TIMEOUT).until(
+            EC.element_to_be_clickable(self.locators.MAIL_RU_BUTTON_YES_ITS_ME)
+        )
+        
+        self.click(self.locators.MAIL_RU_BUTTON_YES_ITS_ME)
+        WebDriverWait(self.driver, DEFAULT_TIMEOUT).until(
+            EC.visibility_of_element_located(self.locators.MAIL_RU_PASSWORD)
+        )
+        
+        password_input = self.find(self.locators.MAIL_RU_PASSWORD)
+        password_input.clear()
+        password_input.send_keys(password)
+        
         
