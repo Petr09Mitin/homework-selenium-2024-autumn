@@ -1,7 +1,6 @@
 from selenium.webdriver.common.by import By
 from ui.locators.base_page_locators import BasePageLocators
 
-
 class MainPageLocators(BasePageLocators):
     VK_ADS_LOGO = (By.XPATH, "//*[contains(@class, 'HeaderLeft_home__')]")
 

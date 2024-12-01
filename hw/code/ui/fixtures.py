@@ -5,6 +5,7 @@ from ui.pages.auth_page import AuthPage
 from ui.pages.base_page import BasePage
 from ui.pages.main_page import MainPage
 from ui.pages.registration_page import RegistrationPage
+from ui.pages.welcome_page import WelcomePage
 from ui.pages.cabinet_page import CabinetPage
 import os
 from dotenv import load_dotenv
@@ -70,3 +71,20 @@ def cabinet_page(driver, credentials_with_cabinet, auth_page):
     driver.get(BasePage.url)
     auth_page.login(*credentials_with_cabinet)
     return CabinetPage(driver=driver)
+
+
+@pytest.fixture
+def authorized_user(driver, auth_page, credentials_with_cabinet): 
+    driver.get(BasePage.url)
+    auth_page.login(*credentials_with_cabinet)
+    return auth_page
+
+@pytest.fixture
+def registration_page(driver, authorized_user):
+    driver.get(RegistrationPage.url)
+    return RegistrationPage(driver=driver)
+
+@pytest.fixture
+def wp(driver, authorized_user):
+    driver.get(WelcomePage.url)
+    return WelcomePage(driver=driver)

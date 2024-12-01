@@ -4,7 +4,6 @@ from ui.pages.base_page import BasePage
 from ui.locators.auth_page_locators import AuthPageLocators
 import time
 
-
 class AuthPage(BasePage):
     locators = AuthPageLocators()
 
@@ -27,11 +26,24 @@ class AuthPage(BasePage):
         )
 
         self.click(self.locators.MAIL_RU_NEXT_BUTTON)
+
+        # WebDriverWait(self.driver, 10).until(
+        #     EC.element_to_be_clickable(self.locators.MAIL_RUN_OTHER_WAY_BUTTON)
+        # )
+        # self.click(self.locators.MAIL_RUN_OTHER_WAY_BUTTON)
+
+        ### endloc: у меня не работал первоначальный вариант
         WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable(self.locators.MAIL_RUN_OTHER_WAY_BUTTON)
+            EC.element_to_be_clickable(self.locators.MAIL_RU_AUTH_PROBLEMS_BUTTON)
         )
-        
-        self.click(self.locators.MAIL_RUN_OTHER_WAY_BUTTON)
+        self.click(self.locators.MAIL_RU_AUTH_PROBLEMS_BUTTON)
+
+        WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(self.locators.MAIL_RU_ENTER_PASSWORD_BUTTON)
+        )
+        self.click(self.locators.MAIL_RU_ENTER_PASSWORD_BUTTON)
+        ###
+
         WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located(self.locators.MAIL_RU_PASSWORD)
         )
