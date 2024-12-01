@@ -5,7 +5,6 @@ from ui.locators.campaigns_page_locators import CampaignPageLocators
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from datetime import date
-from os import path
 from selenium.common.exceptions import TimeoutException
 
 class TargetActions():

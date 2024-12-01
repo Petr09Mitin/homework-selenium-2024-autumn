@@ -30,6 +30,15 @@ class BasePage(object):
             if self.driver.current_url == self.url:
                 return True
         raise PageNotOpenedException(f'{self.url} did not open in {timeout} sec, current url {self.driver.current_url}')
+    
+    def subpage_is_opened(self, url=None, timeout=DEFAULT_TIMEOUT):
+        if not url:
+            url = self.url
+        started = time.time()
+        while time.time() - started < timeout:
+            if url in self.driver.current_url:
+                return True
+        raise PageNotOpenedException(f'{url} did not open in {timeout} sec, current url {self.driver.current_url}')
 
     def close_cookie_banner(self):
         try:
