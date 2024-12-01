@@ -62,9 +62,11 @@ def credentials_with_cabinet():
     load_dotenv(dotenv_path='.env')
     return os.getenv('LOGIN'), os.getenv('PASSWORD')
 
+
 @pytest.fixture
 def auth_page(driver):
     return AuthPage(driver=driver)
+
 
 @pytest.fixture
 def cabinet_page(driver, credentials_with_cabinet, auth_page):
@@ -73,18 +75,30 @@ def cabinet_page(driver, credentials_with_cabinet, auth_page):
     return CabinetPage(driver=driver)
 
 
+# ------------------------------------------------------------------------------------------------
+
 @pytest.fixture
 def authorized_user(driver, auth_page, credentials_with_cabinet): 
     driver.get(BasePage.url)
     auth_page.login(*credentials_with_cabinet)
     return auth_page
 
+
 @pytest.fixture
 def registration_page(driver, authorized_user):
     driver.get(RegistrationPage.url)
     return RegistrationPage(driver=driver)
 
+
 @pytest.fixture
-def wp(driver, authorized_user):
-    driver.get(WelcomePage.url)
+def welcome_page(driver, credentials_with_cabinet, auth_page):
+    driver.get(BasePage.url)
+    auth_page.login(*credentials_with_cabinet)
     return WelcomePage(driver=driver)
+
+
+@pytest.fixture
+def authorization_page(driver, auth_page, credentials_with_cabinet): 
+    driver.get(BasePage.url)
+    auth_page.login(*credentials_with_cabinet)
+    return AuthPage(driver=driver)

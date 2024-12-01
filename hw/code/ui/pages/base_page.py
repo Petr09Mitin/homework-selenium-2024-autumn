@@ -8,6 +8,9 @@ from selenium.webdriver.support import expected_conditions as ec
 
 from ui.locators.base_page_locators import BasePageLocators
 
+WAIT_TIMEOUT = 120 # TODO: убрать так много, это из-за бесконечных капчей
+WAIT_TIMEOUT_10 = 10
+
 class PageNotOpenedException(Exception):
     pass
 
@@ -15,19 +18,13 @@ class BasePage(object):
     locators = BasePageLocators()
     url = 'https://ads.vk.com/'
 
-    def is_opened(self, timeout=15):
+    def is_opened(self, timeout=WAIT_TIMEOUT):
         started = time.time()
-
-        print(self.url)
-        print(self.driver.current_url)
-
         while time.time() - started < timeout:
             current_url = self.driver.current_url.rstrip('/')
             expected_url = self.url.rstrip('/')
             if current_url == expected_url:
                 return True
-            time.sleep(0.1)  # TODO убрать
-
         raise PageNotOpenedException(f'{self.url} did not open in {timeout} sec, current url {self.driver.current_url}')
 
     def close_cookie_banner(self):
