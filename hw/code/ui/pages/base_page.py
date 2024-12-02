@@ -1,5 +1,4 @@
 import time
-
 import allure
 from selenium.common import TimeoutException
 from selenium.webdriver.common.action_chains import ActionChains
@@ -11,6 +10,8 @@ from os import path
 from ui.locators.base_page_locators import BasePageLocators
 
 DEFAULT_TIMEOUT = 30
+WAIT_TIMEOUT = 30
+WAIT_TIMEOUT_10 = 10
 
 class PageNotOpenedException(Exception):
     pass
@@ -27,9 +28,20 @@ class BasePage(object):
     def is_opened(self, timeout=100):
         started = time.time()
         while time.time() - started < timeout:
-            if self.driver.current_url == self.url:
+            current_url = self.driver.current_url.rstrip('/')
+            expected_url = self.url.rstrip('/')
+            if current_url == expected_url:
                 return True
         raise PageNotOpenedException(f'{self.url} did not open in {timeout} sec, current url {self.driver.current_url}')
+    
+    def subpage_is_opened(self, url=None, timeout=DEFAULT_TIMEOUT):
+        if not url:
+            url = self.url
+        started = time.time()
+        while time.time() - started < timeout:
+            if url in self.driver.current_url:
+                return True
+        raise PageNotOpenedException(f'{url} did not open in {timeout} sec, current url {self.driver.current_url}')
 
     def close_cookie_banner(self):
         try:
@@ -83,6 +95,13 @@ class BasePage(object):
     def became_visible(self, locator, timeout=None):
         try:
             self.wait(timeout).until(ec.visibility_of_element_located(locator))
+            return True
+        except TimeoutException:
+            return False
+    
+    def is_element_visible(self, locator, timeout=5):
+        try:
+            self.find(locator, timeout)
             return True
         except TimeoutException:
             return False

@@ -5,6 +5,7 @@ from ui.pages.auth_page import AuthPage
 from ui.pages.base_page import BasePage
 from ui.pages.main_page import MainPage
 from ui.pages.registration_page import RegistrationPage
+from ui.pages.welcome_page import WelcomePage
 from ui.pages.cabinet_page import CabinetPage
 from ui.pages.campaigns_page import CampaignsPage
 from ui.pages.audience_page import AudiencePage
@@ -66,9 +67,11 @@ def credentials_with_cabinet():
     load_dotenv(dotenv_path='.env')
     return os.getenv('LOGIN'), os.getenv('PASSWORD')
 
+
 @pytest.fixture
 def auth_page(driver):
     return AuthPage(driver=driver)
+
 
 @pytest.fixture
 def cabinet_page(driver, credentials_with_cabinet, auth_page):
@@ -105,3 +108,36 @@ def settings_page(driver, cabinet_page):
 def sites_page(driver, cabinet_page):
     driver.get(SitesPage.url)
     return SitesPage(driver=driver)
+
+
+@pytest.fixture
+def authorized_user(driver, auth_page, credentials_with_cabinet): 
+    driver.get(BasePage.url)
+    auth_page.login(*credentials_with_cabinet)
+    return auth_page
+
+
+@pytest.fixture
+def registration_page(driver, authorized_user):
+    driver.get(RegistrationPage.url)
+    return RegistrationPage(driver=driver)
+
+@pytest.fixture
+def authorization_page(driver, auth_page, credentials_with_cabinet): 
+    driver.get(BasePage.url)
+    auth_page.login(*credentials_with_cabinet)
+    return AuthPage(driver=driver)
+
+
+@pytest.fixture
+def welcome_page(driver, credentials_with_cabinet, auth_page):
+    driver.get(BasePage.url)
+    auth_page.login(*credentials_with_cabinet)
+    return WelcomePage(driver=driver)
+
+
+@pytest.fixture
+def main_page(driver, auth_page, credentials_with_cabinet): 
+    driver.get(BasePage.url)
+    auth_page.login(*credentials_with_cabinet)
+    return MainPage(driver=driver)

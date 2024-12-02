@@ -43,3 +43,4 @@ class TestAudience(BaseCase):
         audience_page.close_modal_and_unselect_all()
         audience_page.delete_audience(name=self._valid_name)
         audience_page.delete_user_list(name=self._valid_list_name)
+    
