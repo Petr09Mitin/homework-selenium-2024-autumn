@@ -20,6 +20,7 @@ class TestSupport(BaseCase):
         support_page.click_suggest_idea_reference()
         support_page.assert_reference_to_window(self._suggest_idea_url)
         
+    # These tests are commented because there is unpredictable site behavior after clicking "Ask a question" button
     # def test_ask_a_question_modal(self, support_page):
     #     support_page.click_open_ask_a_question()
     #     support_page.assert_ask_a_question_window_visible()

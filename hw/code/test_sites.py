@@ -55,6 +55,7 @@ class TestSites(BaseCase):
         sites_page.go_to_pixel_list()
         sites_page.delete_pixel()
     
+    # This is commented because I received an error "Api_limit_exceeded" and can't test the section 'Sites'
     # def test_pixel_events(self, sites_page):
     #     sites_page.click_add_pixel()
     #     sites_page.create_pixel(self._correct_domain_site)
