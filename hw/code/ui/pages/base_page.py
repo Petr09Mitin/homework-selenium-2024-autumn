@@ -82,3 +82,10 @@ class BasePage(object):
             return True
         except TimeoutException:
             return False
+    
+    def is_element_visible(self, locator, timeout=5):
+        try:
+            self.find(locator, timeout)
+            return True
+        except TimeoutException:
+            return False

@@ -75,8 +75,6 @@ def cabinet_page(driver, credentials_with_cabinet, auth_page):
     return CabinetPage(driver=driver)
 
 
-# ------------------------------------------------------------------------------------------------
-
 @pytest.fixture
 def authorized_user(driver, auth_page, credentials_with_cabinet): 
     driver.get(BasePage.url)
@@ -98,7 +96,7 @@ def welcome_page(driver, credentials_with_cabinet, auth_page):
 
 
 @pytest.fixture
-def authorization_page(driver, auth_page, credentials_with_cabinet): 
+def main_page(driver, auth_page, credentials_with_cabinet): 
     driver.get(BasePage.url)
     auth_page.login(*credentials_with_cabinet)
-    return AuthPage(driver=driver)
+    return MainPage(driver=driver)
