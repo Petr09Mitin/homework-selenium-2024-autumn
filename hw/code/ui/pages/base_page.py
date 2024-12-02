@@ -8,7 +8,7 @@ from selenium.webdriver.support import expected_conditions as ec
 
 from ui.locators.base_page_locators import BasePageLocators
 
-WAIT_TIMEOUT = 120 # TODO: убрать так много, это из-за бесконечных капчей
+WAIT_TIMEOUT = 30
 WAIT_TIMEOUT_10 = 10
 
 class PageNotOpenedException(Exception):

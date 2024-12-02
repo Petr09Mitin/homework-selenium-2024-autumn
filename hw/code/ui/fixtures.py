@@ -87,6 +87,12 @@ def registration_page(driver, authorized_user):
     driver.get(RegistrationPage.url)
     return RegistrationPage(driver=driver)
 
+@pytest.fixture
+def authorization_page(driver, auth_page, credentials_with_cabinet): 
+    driver.get(BasePage.url)
+    auth_page.login(*credentials_with_cabinet)
+    return AuthPage(driver=driver)
+
 
 @pytest.fixture
 def welcome_page(driver, credentials_with_cabinet, auth_page):

@@ -66,6 +66,6 @@ class AuthPage(BasePage):
 
     def wait_for_redirect_to_cabinet(self):
         try:
-            return WebDriverWait(self.driver, WAIT_TIMEOUT).until(lambda d: "ads.vk.com/hq/overview" in d.current_url)
+            return WebDriverWait(self.driver, 20).until(lambda d: "ads.vk.com/hq/overview" in d.current_url)
         except TimeoutException:
             return False
