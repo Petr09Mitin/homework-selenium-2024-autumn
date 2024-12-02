@@ -11,6 +11,7 @@ from ui.pages.audience_page import AudiencePage
 from ui.pages.mobile_apps_page import MobileAppsPage
 from ui.pages.settings_page import SettingsPage
 from ui.pages.support_page import SupportPage
+from ui.pages.sites_page import SitesPage
 import os
 from dotenv import load_dotenv
 
@@ -99,3 +100,8 @@ def support_page(driver, cabinet_page):
 def settings_page(driver, cabinet_page):
     driver.get(SettingsPage.url)
     return SettingsPage(driver=driver)
+
+@pytest.fixture
+def sites_page(driver, cabinet_page):
+    driver.get(SitesPage.url)
+    return SitesPage(driver=driver)
