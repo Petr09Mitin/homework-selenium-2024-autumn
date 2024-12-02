@@ -5,9 +5,11 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
+from os import path
 
 from ui.locators.base_page_locators import BasePageLocators
 
+DEFAULT_TIMEOUT = 30
 WAIT_TIMEOUT = 30
 WAIT_TIMEOUT_10 = 10
 
@@ -18,7 +20,12 @@ class BasePage(object):
     locators = BasePageLocators()
     url = 'https://ads.vk.com/'
 
-    def is_opened(self, timeout=WAIT_TIMEOUT):
+    def _get_static_filepath(self, filename):
+        return path.abspath(
+            path.join(path.curdir, 'hw', 'static', filename)
+        )
+
+    def is_opened(self, timeout=100):
         started = time.time()
         while time.time() - started < timeout:
             current_url = self.driver.current_url.rstrip('/')
@@ -26,6 +33,15 @@ class BasePage(object):
             if current_url == expected_url:
                 return True
         raise PageNotOpenedException(f'{self.url} did not open in {timeout} sec, current url {self.driver.current_url}')
+    
+    def subpage_is_opened(self, url=None, timeout=DEFAULT_TIMEOUT):
+        if not url:
+            url = self.url
+        started = time.time()
+        while time.time() - started < timeout:
+            if url in self.driver.current_url:
+                return True
+        raise PageNotOpenedException(f'{url} did not open in {timeout} sec, current url {self.driver.current_url}')
 
     def close_cookie_banner(self):
         try:
@@ -89,3 +105,8 @@ class BasePage(object):
             return True
         except TimeoutException:
             return False
+    
+    def send_keys_to_input(self, locator, keys, timeout):
+        inp = self.find(locator=locator, timeout=timeout)
+        inp.clear()
+        inp.send_keys(keys)

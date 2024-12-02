@@ -3,7 +3,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common import TimeoutException
 
-from ui.pages.base_page import BasePage
+from ui.pages.base_page import BasePage, DEFAULT_TIMEOUT
 from ui.locators.auth_page_locators import AuthPageLocators
 from ui.pages.base_page import WAIT_TIMEOUT
 
@@ -12,43 +12,40 @@ class AuthPage(BasePage):
 
     def login(self, login, password):
         self.click(self.locators.NAV_CABINET_BUTTON)
-        WebDriverWait(self.driver, 10).until(
+        WebDriverWait(self.driver, DEFAULT_TIMEOUT).until(
             EC.element_to_be_clickable(self.locators.MAIL_RU_AUTH_BUTTON)
         )
         
         self.click(self.locators.MAIL_RU_AUTH_BUTTON)
-        WebDriverWait(self.driver, 10).until(
+        WebDriverWait(self.driver, DEFAULT_TIMEOUT).until(
             EC.visibility_of_element_located(self.locators.MAIL_RU_LOGIN)
         )
 
         login_input = self.find(self.locators.MAIL_RU_LOGIN)
         login_input.clear()
         login_input.send_keys(login)
-        WebDriverWait(self.driver, 10).until(
+        WebDriverWait(self.driver, DEFAULT_TIMEOUT).until(
             EC.element_to_be_clickable(self.locators.MAIL_RU_NEXT_BUTTON)
         )
 
         self.click(self.locators.MAIL_RU_NEXT_BUTTON)
 
+        # Первый вариант
+        WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(self.locators.MAIL_RUN_OTHER_WAY_BUTTON)
+        )
+        self.click(self.locators.MAIL_RUN_OTHER_WAY_BUTTON)
 
-        # TODO вернуть, если не будет работать
-
+        ### endloc: у меня не работает первый вариант --------------------------------------
+        # WebDriverWait(self.driver, 10).until(
+        #     EC.element_to_be_clickable(self.locators.MAIL_RU_AUTH_PROBLEMS_BUTTON)
+        # )
+        # self.click(self.locators.MAIL_RU_AUTH_PROBLEMS_BUTTON)
 
         # WebDriverWait(self.driver, 10).until(
-        #     EC.element_to_be_clickable(self.locators.MAIL_RUN_OTHER_WAY_BUTTON)
+        #     EC.element_to_be_clickable(self.locators.MAIL_RU_ENTER_PASSWORD_BUTTON)
         # )
-        # self.click(self.locators.MAIL_RUN_OTHER_WAY_BUTTON)
-
-        ### endloc: у меня не работал первоначальный вариант --------------------------------
-        WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable(self.locators.MAIL_RU_AUTH_PROBLEMS_BUTTON)
-        )
-        self.click(self.locators.MAIL_RU_AUTH_PROBLEMS_BUTTON)
-
-        WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable(self.locators.MAIL_RU_ENTER_PASSWORD_BUTTON)
-        )
-        self.click(self.locators.MAIL_RU_ENTER_PASSWORD_BUTTON)
+        # self.click(self.locators.MAIL_RU_ENTER_PASSWORD_BUTTON)
         ### -------------------------------------------------------------------------------
 
         WebDriverWait(self.driver, 10).until(
@@ -58,7 +55,7 @@ class AuthPage(BasePage):
         password_input = self.find(self.locators.MAIL_RU_PASSWORD)
         password_input.clear()
         password_input.send_keys(password)
-        WebDriverWait(self.driver, 10).until(
+        WebDriverWait(self.driver, DEFAULT_TIMEOUT).until(
             EC.element_to_be_clickable(self.locators.MAIL_RU_SUBMIT_BUTTON)
         )
 
