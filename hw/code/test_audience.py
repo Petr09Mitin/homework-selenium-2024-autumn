@@ -19,8 +19,8 @@ class TestAudience(BaseCase):
     
     def test_search_audience(self, audience_page):
         audience_page.create_audience_from_user_list(name=self._valid_name, list_name=self._valid_list_name)
-        audience_page.create_audience_from_user_list(name=self._valid_name2, list_name=self._valid_list_name2)
         audience_page.assert_audience_visible(name=self._valid_name)
+        audience_page.create_audience_from_user_list(name=self._valid_name2, list_name=self._valid_list_name2)
         audience_page.assert_audience_visible(name=self._valid_name2)
         
         audience_page.search_for_audience(name=self._valid_name)

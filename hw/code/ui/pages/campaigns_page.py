@@ -50,7 +50,7 @@ class CampaignsPage(BasePage):
     def select_target_group(self, group_tag, timeout=DEFAULT_TIMEOUT):
         self.click(locator=self.locators.GROUP_SELECTOR, timeout=timeout)
         self.click(locator=self.locators.ENTER_OTHER_GROUP, timeout=timeout)
-        ActionChains(self.driver).send_keys(group_tag).perform()
+        ActionChains(self.driver).send_keys(group_tag+Keys.ENTER).perform()
         self.click(locator=self.locators.ADD_GROUP_BUTTON, timeout=timeout)
     
     def enter_site_url(self, url, timeout=DEFAULT_TIMEOUT):
