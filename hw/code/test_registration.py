@@ -26,16 +26,16 @@ class TestRegistration(BaseCase):
         WebDriverWait(driver, 10).until(lambda d: 'id.vk.com' in d.current_url)
         assert 'id.vk.com' in driver.current_url
 
-    def test_welcome_page_after_auth(self, welcome_page):
-        assert welcome_page.is_welcome_header_visible()
+    def test_welcome_page_for_registration_after_auth(self, welcome_page_for_registration):
+        assert welcome_page_for_registration.is_welcome_header_visible()
         
-    def test_language_switcher(self, welcome_page):
-        welcome_page.assert_switch_language('en')
-        welcome_page.assert_switch_language('ru')
+    def test_language_switcher(self, welcome_page_for_registration):
+        welcome_page_for_registration.assert_switch_language('en')
+        welcome_page_for_registration.assert_switch_language('ru')
 
-    def test_registration_form_required_fields(self, welcome_page):
-        welcome_page.click_create_cabinet()
-        reg_page = RegistrationPage(welcome_page.driver)
+    def test_registration_form_required_fields(self, welcome_page_for_registration):
+        welcome_page_for_registration.click_create_cabinet()
+        reg_page = RegistrationPage(welcome_page_for_registration.driver)
         assert reg_page.is_registration_page()
         
         assert reg_page.is_advertiser_type_visible()
@@ -50,9 +50,9 @@ class TestRegistration(BaseCase):
         assert reg_page.is_terms_checkbox_visible()
         assert reg_page.is_mailing_checkbox_visible()
 
-    def test_advertiser_account_type(self, welcome_page):
-        welcome_page.click_create_cabinet()
-        reg_page = RegistrationPage(welcome_page.driver)
+    def test_advertiser_account_type(self, welcome_page_for_registration):
+        welcome_page_for_registration.click_create_cabinet()
+        reg_page = RegistrationPage(welcome_page_for_registration.driver)
         reg_page.select_advertiser_type()
 
         reg_page.select_company_type()
@@ -66,9 +66,9 @@ class TestRegistration(BaseCase):
         assert reg_page.is_full_name_field_visible()
         assert reg_page.is_inn_field_visible()
 
-    def test_agency_account_type(self, welcome_page):
-        welcome_page.click_create_cabinet()
-        reg_page = RegistrationPage(welcome_page.driver)
+    def test_agency_account_type(self, welcome_page_for_registration):
+        welcome_page_for_registration.click_create_cabinet()
+        reg_page = RegistrationPage(welcome_page_for_registration.driver)
         reg_page.select_agency_type()
         # Проверяем, что доступен только тип "Юридическое лицо"
         assert reg_page.is_company_type_visible()
@@ -77,26 +77,26 @@ class TestRegistration(BaseCase):
         assert not reg_page.is_inn_field_visible()
         assert not reg_page.is_full_name_field_visible()
 
-    def test_default_checkbox_states(self, welcome_page):
-        welcome_page.click_create_cabinet()
-        reg_page = RegistrationPage(welcome_page.driver)
+    def test_default_checkbox_states(self, welcome_page_for_registration):
+        welcome_page_for_registration.click_create_cabinet()
+        reg_page = RegistrationPage(welcome_page_for_registration.driver)
         assert reg_page.get_terms_checkbox_state(), "Terms checkbox should be checked by default"
     #     assert reg_page.get_mailing_checkbox_state(), "Mailing checkbox should be checked by default"
 
-    def test_email_placeholder(self, welcome_page):
-        welcome_page.click_create_cabinet()
-        reg_page = RegistrationPage(welcome_page.driver)
+    def test_email_placeholder(self, welcome_page_for_registration):
+        welcome_page_for_registration.click_create_cabinet()
+        reg_page = RegistrationPage(welcome_page_for_registration.driver)
         assert reg_page.get_email_placeholder() == "example@mail.ru"
 
-    def test_email_required_error(self, welcome_page):
-        welcome_page.click_create_cabinet()
-        reg_page = RegistrationPage(welcome_page.driver)
+    def test_email_required_error(self, welcome_page_for_registration):
+        welcome_page_for_registration.click_create_cabinet()
+        reg_page = RegistrationPage(welcome_page_for_registration.driver)
         reg_page.focus_and_blur_email()
         assert reg_page.is_requires_field_error_visible()
 
-    def test_email_validation(self, welcome_page):
-        welcome_page.click_create_cabinet()
-        reg_page = RegistrationPage(welcome_page.driver)
+    def test_email_validation(self, welcome_page_for_registration):
+        welcome_page_for_registration.click_create_cabinet()
+        reg_page = RegistrationPage(welcome_page_for_registration.driver)
         invalid_emails = [
             "test",
             "test@",
@@ -127,9 +127,9 @@ class TestRegistration(BaseCase):
             error_message = reg_page.get_email_error()
             assert error_message == None, f"Expected error message: {self.error_invalid_email}, but got: {error_message}"
 
-    def test_inn_validation(self, welcome_page):
-        welcome_page.click_create_cabinet()
-        reg_page = RegistrationPage(welcome_page.driver)
+    def test_inn_validation(self, welcome_page_for_registration):
+        welcome_page_for_registration.click_create_cabinet()
+        reg_page = RegistrationPage(welcome_page_for_registration.driver)
         reg_page.select_advertiser_type()
         reg_page.select_individual_type()
         _ = reg_page.is_set_inn("12345")
@@ -142,9 +142,9 @@ class TestRegistration(BaseCase):
         _ = reg_page.is_set_inn("123456789012")
         assert not (reg_page.has_inn_min_length_error() and reg_page.has_inn_max_length_error())
 
-    def test_full_name_validation(self, welcome_page):
-        welcome_page.click_create_cabinet()
-        reg_page = RegistrationPage(welcome_page.driver)
+    def test_full_name_validation(self, welcome_page_for_registration):
+        welcome_page_for_registration.click_create_cabinet()
+        reg_page = RegistrationPage(welcome_page_for_registration.driver)
         reg_page.select_advertiser_type()
         reg_page.select_individual_type()
         
@@ -174,7 +174,7 @@ class TestRegistration(BaseCase):
             reg_page.select_advertiser_type()
             assert not reg_page.has_full_name_error()
 
-    def test_successful_registration(self, welcome_page_for_registration    ):
+    def test_successful_registration(self, welcome_page_for_registration):
         welcome_page_for_registration.click_create_cabinet()
         reg_page = RegistrationPage(welcome_page_for_registration.driver)
         reg_page.set_email("test@example.com")
@@ -185,5 +185,3 @@ class TestRegistration(BaseCase):
         reg_page.click_delete_cabinet()
         reg_page.click_accept_delete_cabinet()
         assert reg_page.wait_for_redirect_to_main_page()
-
-    
