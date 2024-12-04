@@ -30,3 +30,6 @@ class SettingsAccessLocators:
     @staticmethod
     def find_cabinet_by_name(name):
         return (By.XPATH, f'//span[@class="ListAccess_name__QUCY9" and contains(text(), "{name}")]')
+    
+    DELETE_CABINET_BUTTON = (By.XPATH, "//button[contains(@class, 'DeleteAccount_button')]")
+    ACCEPT_DELETE_CABINET_BUTTON = (By.XPATH, "//button[contains(@class, 'vkuiButton--appearance-negative') and span/span[text()='Да, удалить']]")

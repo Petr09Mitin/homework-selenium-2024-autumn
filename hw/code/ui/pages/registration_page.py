@@ -7,6 +7,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.common.exceptions import TimeoutException
 from ui.pages.base_page import WAIT_TIMEOUT, WAIT_TIMEOUT_10
 from selenium.webdriver.support import expected_conditions as EC
+from ui.locators.settings_access_locators import SettingsAccessLocators
+from ui.locators.settings_general_locators import SettingsGeneralLocators
 
 class RegistrationPage(BasePage):
     locators = RegistrationPageLocators()
@@ -202,4 +204,21 @@ class RegistrationPage(BasePage):
             return WebDriverWait(self.driver, WAIT_TIMEOUT).until(lambda d: "ads.vk.com/hq/overview" in d.current_url)
         except TimeoutException:
             return False
+        
+    # для удаления кабинета после регистрации
+    def click_settings_menu_item(self, timeout=WAIT_TIMEOUT):
+        self.click(locator=SettingsGeneralLocators.MENU_ITEM, timeout=timeout)
+        
+    def click_delete_cabinet(self, timeout=WAIT_TIMEOUT):
+        self.click(locator=SettingsAccessLocators.DELETE_CABINET_BUTTON, timeout=timeout)
+        
+    def click_accept_delete_cabinet(self, timeout=WAIT_TIMEOUT):
+        self.click(locator=SettingsAccessLocators.ACCEPT_DELETE_CABINET_BUTTON, timeout=timeout)
+
+    def wait_for_redirect_to_main_page(self):
+        try:
+            return WebDriverWait(self.driver, WAIT_TIMEOUT).until(lambda d: "ads.vk.com" in d.current_url)
+        except TimeoutException:
+            return False
+        
         

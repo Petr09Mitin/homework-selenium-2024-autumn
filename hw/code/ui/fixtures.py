@@ -128,6 +128,11 @@ def authorization_page(driver, auth_page, credentials_with_cabinet):
     auth_page.login(*credentials_with_cabinet)
     return AuthPage(driver=driver)
 
+@pytest.fixture
+def welcome_page_for_registration(driver, credentials_without_cabinet, auth_page):
+    driver.get(BasePage.url)
+    auth_page.login(*credentials_without_cabinet)
+    return WelcomePage(driver=driver)
 
 @pytest.fixture
 def welcome_page(driver, credentials_with_cabinet, auth_page):

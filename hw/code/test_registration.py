@@ -174,9 +174,16 @@ class TestRegistration(BaseCase):
             reg_page.select_advertiser_type()
             assert not reg_page.has_full_name_error()
 
-    def test_successful_registration(self, welcome_page):
-        welcome_page.click_create_cabinet()
-        reg_page = RegistrationPage(welcome_page.driver)
+    def test_successful_registration(self, welcome_page_for_registration    ):
+        welcome_page_for_registration.click_create_cabinet()
+        reg_page = RegistrationPage(welcome_page_for_registration.driver)
         reg_page.set_email("test@example.com")
         reg_page.click_create_cabinet()
         assert reg_page.wait_for_redirect_to_cabinet()
+
+        reg_page.click_settings_menu_item()
+        reg_page.click_delete_cabinet()
+        reg_page.click_accept_delete_cabinet()
+        assert reg_page.wait_for_redirect_to_main_page()
+
+    
