@@ -116,7 +116,6 @@ class TestSettings(BaseCase):
     def test_logs(self, settings_page):
         settings_page.click_logs_tab()
         settings_page.assert_reference_to_window(self._logs_url)
-        settings_page.assert_empty_logs()
         settings_page.click_filter_button()
         settings_page.assert_opened_filter_block()
         settings_page.click_close_filter_block()

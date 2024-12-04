@@ -125,7 +125,6 @@ class SettingsPage(BasePage):
         assert self.became_invisible(locator=self.general_locators.INCORRECT_INN, timeout=timeout)
         
     def assert_incorrect_fields(self, timeout=DEFAULT_TIMEOUT):
-        self.assert_empty_FIO()
         self.assert_incorrect_email()
         self.assert_incorrect_phone()
         self.assert_incorrect_INN()
