@@ -18,7 +18,7 @@ class AudiencePageLocators(BasePageLocators):
     USER_LIST_MENU_ITEM = (By.XPATH, '//*[@id="tab_audience.users_list"]')
     AUDIENCES_MENU_ITEM = (By.XPATH, '//*[@id="tab_audience"]')
     ADD_AUDIENCE_HEADER = (By.XPATH, '//h2[contains(text(), "Создание аудитории")]')
-    ADD_USER_LIST_HEADER = (By.XPATH, '//h2[contains(text(), "Загрузить список")]')
+    ADD_USER_LIST_HEADER = (By.XPATH, '//h2[contains(text(), "Список пользователей")]')
     CLOSE = (By.XPATH, '//button[@aria-label="Close"]')
     CLOSE_DIV = (By.XPATH, '//div[@aria-label="Закрыть"]')
     SEARCH_INPUT = (By.XPATH, '//*[@data-testid="search-input"]')

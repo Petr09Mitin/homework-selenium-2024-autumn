@@ -98,6 +98,9 @@ class AudiencePage(BasePage):
     def assert_user_list_visible(self, name, timeout=DEFAULT_TIMEOUT):
         assert self.became_visible(locator=self.locators.get_user_list_name(name=name), timeout=DEFAULT_TIMEOUT)
     
+    def assert_user_list_not_visible(self, name, timeout=DEFAULT_TIMEOUT):
+        assert self.became_visible(locator=self.locators.get_user_list_name(name=name), timeout=DEFAULT_TIMEOUT)
+    
     def assert_access_granted_visible(self, timeout=DEFAULT_TIMEOUT):
         assert self.became_visible(locator=self.locators.ACCESS_GRANTED, timeout=DEFAULT_TIMEOUT)
     
