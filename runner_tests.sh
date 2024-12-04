@@ -1,1 +1,2 @@
-pytest hw/code
+#!/bin/bash
+pytest ./hw/code
