@@ -29,7 +29,7 @@ class AuthPage(BasePage):
 
         self.click(self.locators.MAIL_RU_NEXT_BUTTON)
 
-        if self.is_element_clickable(self.locators.MAIL_RUN_OTHER_WAY_BUTTON, timeout=DEFAULT_TIMEOUT):
+        if self.is_element_clickable(self.locators.MAIL_RUN_OTHER_WAY_BUTTON, timeout=5):
             self.click(self.locators.MAIL_RUN_OTHER_WAY_BUTTON)
         else:
             WebDriverWait(self.driver, 10).until(
