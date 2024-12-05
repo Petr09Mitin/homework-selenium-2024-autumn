@@ -4,7 +4,6 @@ from ui.pages.base_page import BasePage, DEFAULT_TIMEOUT
 from ui.locators.audience_page_locators import AudiencePageLocators
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.common.exceptions import TimeoutException
 
 class AudiencePage(BasePage):
     url = 'https://ads.vk.com/hq/audience'

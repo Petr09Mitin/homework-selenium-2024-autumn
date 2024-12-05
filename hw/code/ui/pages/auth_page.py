@@ -29,14 +29,9 @@ class AuthPage(BasePage):
 
         self.click(self.locators.MAIL_RU_NEXT_BUTTON)
 
-        try:
-            # Первый вариант
-            WebDriverWait(self.driver, 5).until(
-                EC.element_to_be_clickable(self.locators.MAIL_RUN_OTHER_WAY_BUTTON)
-            )
+        if self.is_element_clickable(self.locators.MAIL_RUN_OTHER_WAY_BUTTON, timeout=DEFAULT_TIMEOUT):
             self.click(self.locators.MAIL_RUN_OTHER_WAY_BUTTON)
-        except TimeoutException:
-            ### endloc: у меня не работает первый вариант --------------------------------------
+        else:
             WebDriverWait(self.driver, 10).until(
                 EC.element_to_be_clickable(self.locators.MAIL_RU_AUTH_PROBLEMS_BUTTON)
             )
@@ -46,7 +41,6 @@ class AuthPage(BasePage):
                 EC.element_to_be_clickable(self.locators.MAIL_RU_ENTER_PASSWORD_BUTTON)
             )
             self.click(self.locators.MAIL_RU_ENTER_PASSWORD_BUTTON)
-            ### -------------------------------------------------------------------------------
 
         WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located(self.locators.MAIL_RU_PASSWORD)

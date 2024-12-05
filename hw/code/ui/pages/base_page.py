@@ -43,16 +43,9 @@ class BasePage(object):
                 return True
         raise PageNotOpenedException(f'{url} did not open in {timeout} sec, current url {self.driver.current_url}')
 
-    def close_cookie_banner(self):
-        try:
-            self.click(self.locators.COOKIE_BUTTON)
-        except TimeoutException:
-            pass
-
     def __init__(self, driver):
         self.driver = driver
         self.is_opened()
-        self.close_cookie_banner()
 
     def wait(self, timeout=None):
         if timeout is None:
@@ -105,6 +98,15 @@ class BasePage(object):
             return True
         except TimeoutException:
             return False
+    
+    def is_element_clickable(self, locator, timeout=5):
+        try:
+            WebDriverWait(self.driver, timeout=timeout).until(
+                ec.element_to_be_clickable(locator)
+            )
+            return True
+        except TimeoutException:
+            return False    
     
     def send_keys_to_input(self, locator, keys, timeout):
         inp = self.find(locator=locator, timeout=timeout)
