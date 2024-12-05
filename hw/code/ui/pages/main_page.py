@@ -1,6 +1,8 @@
 from ui.pages.base_page import BasePage
 from ui.locators.main_page_locators import MainPageLocators
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.support.ui import WebDriverWait
+import re
 
 
 class MainPage(BasePage):
@@ -72,3 +74,38 @@ class MainPage(BasePage):
         assert self.is_nav_item_visible("Монетизация"), "Элемент навигации 'Монетизация' должен быть виден"
         assert self.is_help_button_visible(), "Кнопка 'Справка' должна быть видна"
         assert self.is_nav_create_button_visible(), "Кнопка 'Перейти в кабинет' должна быть видна"
+
+    def assert_redirect_to_cases(self, timeout=10):
+        pattern = r"ads\.vk\.com/cases/.+"
+        WebDriverWait(self.driver, timeout).until(lambda d: re.search(pattern, d.current_url))
+        assert re.search(pattern, self.driver.current_url), f"URL должен содержать '{pattern}', но получен '{self.driver.current_url}'"
+
+    def assert_footer_elements_visible(self):
+        assert self.is_footer_logo_visible(), "Логотип в футере должен быть виден"
+        assert self.is_footer_cabinet_button_visible(), "Кнопка 'Перейти в кабинет' в футере должна быть видна"
+        
+        footer_nav_items = [
+            "Новости",
+            "Обучение для бизнеса",
+            "Полезные материалы",
+            "Кейсы",
+            "Мероприятия",
+            "Помощь",
+            "Документы",
+            "Монетизация"
+        ]
+        for item in footer_nav_items:
+            assert self.is_footer_nav_item_visible(item), f"Элемент навигации '{item}' в футере должен быть виден"
+        
+        footer_social_links = [
+            "https://vk.com/vk_ads",
+            "https://ok.ru/group/64279825940712",
+            "https://dzen.ru/vk_ads",
+            "https://t.me/vk_ads"
+        ]
+        for link in footer_social_links:
+            assert self.is_footer_social_visible(link), f"Ссылка на соц. сеть '{link}' в футере должна быть видна"
+
+        assert self.is_footer_language_selector_visible(), "Селектор языка в футере должен быть виден"
+        assert self.is_footer_about_company_visible(), "Информация о компании в футере должна быть видна"
+        assert self.is_footer_copyright_visible(), "Копирайт в футере должен быть виден"
