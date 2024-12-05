@@ -75,6 +75,7 @@ class SitesPage(BasePage):
         self.click_remove_pixel()
         self.assert_remove_pixel_modal()
         self.click_accept_remove_pixel()
+        self.assert_noone_pixels()
         
     def click_go_to_pixel_settings(self, timeout=DEFAULT_TIMEOUT):
         self.click(locator=self.locators.PIXEL_SETTINGS_BUTTON, timeout=timeout)
