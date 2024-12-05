@@ -5,7 +5,6 @@ from ui.locators.campaigns_page_locators import CampaignPageLocators
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from datetime import date
-from selenium.common.exceptions import TimeoutException
 
 class TargetActions():
     SITE = 'site'
@@ -17,10 +16,8 @@ class CampaignsPage(BasePage):
     target_actions = TargetActions()
     
     def click_learning_modal_dismiss(self, timeout=1):
-        try:
+        if self.is_element_clickable(self.locators.DISMISS_BUTTON, timeout=timeout):
             self.click(self.locators.DISMISS_BUTTON, timeout=timeout)
-        except TimeoutException:
-            pass
     
     def click_create_campaign_button(self, timeout=DEFAULT_TIMEOUT):
         self.click(self.locators.CREATE_CAMPAIGN_BUTTON, timeout=timeout)
@@ -122,10 +119,8 @@ class CampaignsPage(BasePage):
         ActionChains(self.driver).send_keys(description+Keys.ENTER).perform()
     
     def click_confirm(self, timeout=5):
-        try:
+        if self.is_element_clickable(locator=self.locators.CONFIRM_CAMPAIGN, timeout=timeout):
             self.click(locator=self.locators.CONFIRM_CAMPAIGN, timeout=timeout)
-        except TimeoutException:
-            pass
     
     def click_shot_in_video(self, timeout=DEFAULT_TIMEOUT):
         self.click(locator=self.locators.SHOT_IN_VIDEO, timeout=timeout)

@@ -1,7 +1,6 @@
 from selenium.webdriver import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ес
-
 from ui.pages.base_page import BasePage
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -9,7 +8,6 @@ from ui.pages.base_page import BasePage, DEFAULT_TIMEOUT
 from ui.locators.cabinet_page_locators import CabinetPageLocators
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.common.exceptions import TimeoutException
 
 class CabinetPage(BasePage):
     locators = CabinetPageLocators()
