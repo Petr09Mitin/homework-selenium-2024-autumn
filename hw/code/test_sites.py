@@ -7,6 +7,8 @@ class TestSites(BaseCase):
     
     _valid_event_name = 'lolkekeshkere'
     
+    _audience_name = "ahaha yeah"
+    
     def test_create_and_delete_pixel(self, sites_page):
         sites_page.assert_noone_pixels()
         sites_page.click_add_pixel()
@@ -54,14 +56,20 @@ class TestSites(BaseCase):
         sites_page.assert_instruction_modal_closed()
         sites_page.go_to_pixel_list()
         sites_page.delete_pixel()
-    
-    # This is commented because I received an error "Api_limit_exceeded" and can't test the section 'Sites'
-    # def test_pixel_events(self, sites_page):
-    #     sites_page.click_add_pixel()
-    #     sites_page.create_pixel(self._correct_domain_site)
-    #     sites_page.click_go_to_pixel_settings()
-    #     sites_page.click_pixel_events()
-    #     sites_page.assert_pixel_events_window_opened()
-    #     sites_page.click_add_pixel_event()
-    #     sites_page.assert_add_pixel_event_window_opened()
-    #     sites_page.fill_new_event_fields(self._valid_event_name)
+        
+    def test_audience_tags(self, sites_page):
+        sites_page.click_add_pixel()
+        sites_page.create_pixel(self._correct_domain_site)
+        sites_page.click_go_to_pixel_settings()
+        sites_page.click_audience_tags()
+        sites_page.assert_no_audience_tags()
+        sites_page.click_create_audience_tags()
+        sites_page.assert_create_audience_tags_modal()
+        sites_page.click_close_audience_tags_modal()
+        sites_page.assert_closed_audience_tags_modal()
+        sites_page.click_create_audience_tags()
+        sites_page.fill_create_audience_tag(self._audience_name)
+        sites_page.click_accept_create_audience_tags_modal()
+        sites_page.assert_created_audience_tag()
+        sites_page.go_to_pixel_list()
+        sites_page.delete_pixel()

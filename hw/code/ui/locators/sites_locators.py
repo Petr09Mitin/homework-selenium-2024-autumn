@@ -28,6 +28,7 @@ class SitePageLocators(BasePageLocators):
     SITE_DIAGNOSTIC_TAB = (By.XPATH, '//div[@id="tab_pixels.review"]')
     SITE_CODE_TAB = (By.XPATH, '//div[@id="tab_pixels.code"]')
     SITE_EVENTS_TAB = (By.XPATH, '//div[@id="tab_pixels.events"]')
+    SITE_AUDIENCE_TAGS_TAB = (By.XPATH, '//div[@id="tab_pixels.audience_tags"]')
     
     NO_EVENTS = (By.XPATH, '//h2[text()="Нет добавленных событий"]')
     ADD_EVENT_BUTTON = (By.XPATH, '//div[@class="vkuiPlaceholder__action"]/button')
@@ -48,6 +49,16 @@ class SitePageLocators(BasePageLocators):
     INSTRUCTION_BUTTON = (By.XPATH, '//button[span/span[text()="Инструкция по установке"]]')
     INSTRUCTION_MODAL = (By.XPATH, '//div[@class="ModalRoot_componentWrapper__uzHTL"]')
     CLOSE_INSTRUCTION_MODAL = (By.XPATH, '//div[contains(@class, "vkuiModalDismissButton")]')
+    
+    NO_AUDIENCE_TAGS = (By.XPATH, '//h2[text()="Нет аудиторных тегов"]')
+    CREATE_AUDIENCE_TAG = (By.XPATH, '//div[@class="vkuiPlaceholder__action"]/button')
+    NEW_AUDIENCE_TAG_MODAL = (By.XPATH, '//div[@class="ModalRoot_componentWrapper__uzHTL"]')
+    CREATE_AUDIENCE_TAG_INPUT = (By.XPATH, '//input[@placeholder="Введите название тега"]')
+    CANCEL_CREATE_AUDIENCE_TAG_MODAL = (By.XPATH, '//div[contains(@class, "CreateTagModal_footerButtons__RvjMB")]/button[span/span[text()="Отмена"]]')
+    ACCEPT_CREATE_AUDIENCE_TAG_MODAL = (By.XPATH, '//div[contains(@class, "CreateTagModal_footerButtons__RvjMB")]/button[span/span[text()="Создать"]]')
+    
+    def get_audience_tag(name):
+        return (By.XPATH, f'//div[@class="BaseTable__row-cell-text" and text()={name}]')
     
     NOT_ENOUGH_AUDIENCE = (By.XPATH, '//h2[text()="Недостаточно посетителей сайта"]')
     

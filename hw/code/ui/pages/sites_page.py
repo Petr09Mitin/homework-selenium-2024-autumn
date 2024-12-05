@@ -155,3 +155,30 @@ class SitesPage(BasePage):
         self.click(locator=self.locators.PAGE_VISITED_OPTION, timeout=timeout)
         self.send_keys_to_input(locator=self.locators.URL_EVENT_INPUT, keys=name, timeout=timeout)
         self.click_accept_add_event()
+        
+    def click_audience_tags(self, timeout=DEFAULT_TIMEOUT):
+        self.click(locator=self.locators.SITE_AUDIENCE_TAGS_TAB, timeout=timeout)
+        
+    def assert_no_audience_tags(self, timeout=DEFAULT_TIMEOUT):
+        assert self.became_visible(locator=self.locators.NO_AUDIENCE_TAGS, timeout=timeout)
+        
+    def click_create_audience_tags(self, timeout=DEFAULT_TIMEOUT):
+        self.click(locator=self.locators.CREATE_AUDIENCE_TAG, timeout=timeout)
+        
+    def assert_create_audience_tags_modal(self, timeout=DEFAULT_TIMEOUT):
+        assert self.became_visible(locator=self.locators.NEW_AUDIENCE_TAG_MODAL, timeout=timeout)
+        
+    def click_close_audience_tags_modal(self, timeout=DEFAULT_TIMEOUT):
+        self.click(locator=self.locators.CANCEL_CREATE_AUDIENCE_TAG_MODAL, timeout=timeout)
+        
+    def assert_closed_audience_tags_modal(self, timeout=DEFAULT_TIMEOUT):
+        assert self.became_invisible(locator=self.locators.NEW_AUDIENCE_TAG_MODAL, timeout=timeout)
+        
+    def fill_create_audience_tag(self, audience_name, timeout=DEFAULT_TIMEOUT):
+        self.send_keys_to_input(locator=self.locators.CREATE_AUDIENCE_TAG_INPUT, keys=audience_name, timeout=timeout)
+        
+    def click_accept_create_audience_tags_modal(self, timeout=DEFAULT_TIMEOUT):
+        self.click(locator=self.locators.ACCEPT_CREATE_AUDIENCE_TAG_MODAL, timeout=timeout)
+        
+    def assert_created_audience_tag(self, timeout=DEFAULT_TIMEOUT):
+        assert self.became_invisible(locator=self.locators.NO_AUDIENCE_TAGS, timeout=timeout)
