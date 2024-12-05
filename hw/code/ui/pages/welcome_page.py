@@ -50,3 +50,6 @@ class WelcomePage(BasePage):
         
     def click_create_cabinet(self):
         self.click(self.locators.CREATE_CABINET_BUTTON, WAIT_TIMEOUT)
+
+    def assert_welcome_header_visible(self):
+        assert self.is_welcome_header_visible(), "Заголовок welcome-страницы не отображается корректно"

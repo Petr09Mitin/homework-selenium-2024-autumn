@@ -21,7 +21,6 @@ class MainPage(BasePage):
             return True
         except TimeoutException:
             return False
-
         
     def is_help_button_visible(self):
         return self.is_element_visible(self.locators.NAV_HELP_BUTTON)
@@ -58,3 +57,18 @@ class MainPage(BasePage):
     
     def is_footer_copyright_visible(self):
         return self.is_element_visible(self.locators.FOOTER_COPYRIGHT)
+    
+    def assert_title_contains(self):
+        expected_title = "VK Реклама"
+        actual_title = self.driver.title
+        assert expected_title in actual_title, f"Заголовок страницы должен содержать '{expected_title}', но он содержит: '{actual_title}'"
+
+    def assert_header_elements_visible(self):
+        assert self.is_vk_ads_logo_visible(), "Логотип VK Ads должен быть виден"
+        assert self.is_nav_item_visible("Новости"), "Элемент навигации 'Новости' должен быть виден"
+        assert self.is_nav_item_visible("Обучение"), "Элемент навигации 'Обучение' должен быть виден"
+        assert self.is_nav_item_visible("Кейсы"), "Элемент навигации 'Кейсы' должен быть виден"
+        assert self.is_nav_item_visible("Форум идей"), "Элемент навигации 'Форум идей' должен быть виден"
+        assert self.is_nav_item_visible("Монетизация"), "Элемент навигации 'Монетизация' должен быть виден"
+        assert self.is_help_button_visible(), "Кнопка 'Справка' должна быть видна"
+        assert self.is_nav_create_button_visible(), "Кнопка 'Перейти в кабинет' должна быть видна"

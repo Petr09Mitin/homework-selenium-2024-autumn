@@ -18,5 +18,5 @@ class TestChatBot(BaseCase):
         new_window = cabinet_page.driver.window_handles[-1]
         cabinet_page.driver.switch_to.window(new_window)
         # Должна открыться страница авторизации на vk.com
-        assert "vk.com" in cabinet_page.driver.current_url
+        cabinet_page.assert_redirect_to_vk()
         cabinet_page.driver.switch_to.window(cabinet_page.driver.window_handles[0])

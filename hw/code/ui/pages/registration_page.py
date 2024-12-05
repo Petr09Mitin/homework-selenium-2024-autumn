@@ -221,4 +221,91 @@ class RegistrationPage(BasePage):
         except TimeoutException:
             return False
         
-        
+    # asserts
+    def assert_registration_page_opened(self):
+        assert self.is_registration_page(), "Должна открыться страница регистрации"
+    
+    def assert_advertiser_type_visible(self):
+        assert self.is_advertiser_type_visible(), "Чекбокс Рекламодатель должен быть виден"
+    
+    def assert_agency_type_visible(self):
+        assert self.is_agency_type_visible(), "Чекбокс Агентство должен быть виден"
+
+    def assert_country_selector_visible(self):
+        assert self.is_country_selector_visible(), "Селектор страны должен быть виден"
+    
+    def assert_currency_selector_visible(self):
+        assert self.is_currency_selector_visible(), "Селектор валюты должен быть виден"
+
+    def assert_email_field_visible(self):
+        assert self.is_email_field_visible(), "Поле для ввода email должно быть видно"
+
+    # def assert_inn_field_visible(self):
+    #     assert self.is_inn_field_visible(), "Поле для ввода ИНН должно быть видно"
+
+    def assert_inn_field_visible(self, should_be_visible=True):
+        if should_be_visible:
+            assert self.is_inn_field_visible(), "Поле для ввода ИНН должно быть видно"
+        else:
+            assert not self.is_inn_field_visible(), "Поле для ввода ИНН не должно быть видно"
+    
+    # def assert_full_name_field_visible(self):
+    #     assert self.is_full_name_field_visible(), "Поле для ввода ФИО должно быть видно"
+
+    def assert_full_name_field_visible(self, should_be_visible=True):
+        if should_be_visible:
+            assert self.is_full_name_field_visible(), "Поле для ввода ФИО должно быть видно"
+        else:
+            assert not self.is_full_name_field_visible(), "Поле для ввода ФИО не должно быть видно"
+    
+    # def assert_individual_type_visible(self):
+    #     assert self.is_individual_type_visible(), "Чекбокс Физическое лицо должен быть виден"
+
+    def assert_individual_type_visible(self, should_be_visible=True):
+        if should_be_visible:
+            assert self.is_individual_type_visible(), "Чекбокс Физическое лицо должен быть виден"
+        else:
+            assert not self.is_individual_type_visible(), "Чекбокс Физическое лицо не должен быть виден"
+    
+    def assert_company_type_visible(self):
+        assert self.is_company_type_visible(), "Чекбокс Юридическое лицо должен быть виден"
+
+    def assert_terms_checkbox_visible(self):
+        assert self.is_terms_checkbox_visible(), "Чекбокс Условий должен быть виден"
+
+    def assert_mailing_checkbox_visible(self):
+        assert self.is_mailing_checkbox_visible(), "Чекбокс Рассылки должен быть виден"
+
+    def assert_email_placeholder(self, expected_placeholder="example@mail.ru"):
+        actual_placeholder = self.get_email_placeholder()
+        assert actual_placeholder == expected_placeholder, f"Ожидался плейсхолдер email '{expected_placeholder}', но получен '{actual_placeholder}'"
+
+    def assert_required_field_error_visible(self):
+        assert self.is_requires_field_error_visible(), "Ошибка обязательного поля email должна быть видна"
+    
+    def assert_error_message(self, actual_message, expected_message):
+        assert actual_message == expected_message, f"Ожидалось сообщение об ошибке: '{expected_message}', но получено: '{actual_message}'"
+
+    # def assert_inn_min_length_error(self):
+    #     assert self.has_inn_min_length_error(), "Ошибка о том, что не достигнута минимальная длина ИНН, должна быть видна"
+
+    # def assert_inn_max_length_error(self):
+    #     assert self.has_inn_max_length_error(), "Ошибка о том, что превышена максимальная длина ИНН, должна быть видна"
+
+    def assert_inn_min_length_error(self, should_be_visible=True):
+        if should_be_visible:
+            assert self.has_inn_min_length_error(),  "Ошибка о том, что не достигнута минимальная длина ИНН, должна быть видна"
+        else:
+            assert not self.has_inn_min_length_error(),  "Ошибка о том, что не достигнута минимальная длина ИНН, не должна быть видна"
+
+    def assert_inn_max_length_error(self, should_be_visible=True):
+        if should_be_visible:
+            assert self.has_inn_max_length_error(),  "Ошибка о том, что превышена максимальная длина ИНН, должна быть видна"
+        else:
+            assert not self.has_inn_max_length_error(),  "Ошибка о том, что превышена максимальная длина ИНН, не должна быть видна"
+
+    def assert_redirect_to_cabinet(self):
+        assert self.wait_for_redirect_to_cabinet(), "Ожидался редирект на ads.vk.com/hq/overview, но он не произошел"
+
+    def assert_redirect_to_main_page(self):
+        assert self.wait_for_redirect_to_main_page(), "Ожидался редирект на ads.vk.com, но он не произошел"

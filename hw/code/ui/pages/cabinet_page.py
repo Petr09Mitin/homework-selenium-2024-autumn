@@ -77,3 +77,12 @@ class CabinetPage(BasePage):
 
     def is_chatbot_window_visible(self):
         return self.is_element_visible(self.locators.CHATBOT_WINDOW)
+    
+    def wait_for_redirect_to_vk(self):
+        try:
+            return WebDriverWait(self.driver, DEFAULT_TIMEOUT).until(lambda d: "vk.com" in d.current_url)
+        except TimeoutException:
+            return False
+        
+    def assert_redirect_to_vk(self):
+        assert self.wait_for_redirect_to_vk(), "Ожидался редирект на vk.com, но он не произошел"

@@ -8,6 +8,7 @@ from selenium.webdriver.support import expected_conditions as ec
 from os import path
 
 from ui.locators.base_page_locators import BasePageLocators
+from ui.locators.auth_page_locators import AuthPageLocators
 
 DEFAULT_TIMEOUT = 30
 WAIT_TIMEOUT = 30
@@ -111,3 +112,15 @@ class BasePage(object):
         self.click(locator=locator, timeout=timeout)
         inp.clear()
         inp.send_keys(keys)
+
+    def click_cabinet_button(self):
+        self.click(AuthPageLocators.NAV_CABINET_BUTTON, WAIT_TIMEOUT)
+        
+    def wait_for_redirect(self, expected_url):
+        try:
+            return WebDriverWait(self.driver, WAIT_TIMEOUT).until(lambda d: expected_url in d.current_url)
+        except TimeoutException:
+            return False
+        
+    def assert_redirect(self, expected_url):
+        assert self.wait_for_redirect(), f"Ожидался редирект на '{expected_url}', но он не произошел"
